@@ -175,6 +175,8 @@
         background: #f8fafc; border: 1px dashed #cbd5e1;
         border-radius: 8px; padding: 14px; margin: 16px 20px 0;
     }
+    .dj-mct-preview .hero__member-card-header { color: #1e293b !important; }
+.dj-mct-preview .hero__member-card-p      { color: #475569 !important; }
     .dj-mct-fields { display: flex; flex-direction: column; gap: 10px; padding: 16px 20px 0; }
     .dj-field-label {
         display: flex; flex-direction: column; gap: 6px;

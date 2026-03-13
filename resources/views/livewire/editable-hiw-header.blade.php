@@ -120,11 +120,13 @@
         }
         .dj-hiw-wrapper:hover .dj-hiw-edit-btn   { opacity: 1; transform: scale(1); }
         .dj-hiw-edit-btn:hover                    { background: #2563eb; transform: scale(1.1) !important; }
-        .dj-hiw-wrapper:hover .hiw__header-wrapper {
-            outline: 2px solid #3b82f6;
-            outline-offset: 8px;
-            border-radius: 4px;
-        }
+       @if($isAdmin)
+.dj-hiw-wrapper:hover .hiw__header-wrapper {
+    outline: 2px solid #3b82f6;
+    outline-offset: 8px;
+    border-radius: 4px;
+}
+@endif
 
         .dj-hiw-toast {
             position: absolute; top: -30px; left: 0;

@@ -413,7 +413,8 @@
                     <div data-w-id="4bf06ab7-87fa-09aa-0827-163070733f5c" style="opacity: 0"
                         class="hiw__header-wrapper">
                         <div class="eyebrow">Membership benefits</div>
-                        <livewire:editable-benefits-hero />
+                        <livewire:editable-benefits-heading />
+                        <livewire:editable-benefits-para />
                     </div>
                 </div>
                 <div class="grid-line-right"></div>
@@ -832,47 +833,7 @@
                 " sizes="(max-width: 1631px) 100vw, 1631px" data-w-id="4bf06ab7-87fa-09aa-0827-163070734055"
                             loading="lazy" />
                     </div>
-                    <div data-w-id="4bf06ab7-87fa-09aa-0827-163070734056" style="opacity: 0" class="pricing__card">
-                        <div class="div-block-4">
-                            <div class="pricing__card-header">Monthly Club</div>
-                            <div class="div-block-5">
-                                <div>PAUSE OR CANCEL ANYTIME</div>
-                            </div>
-                        </div>
-                        <div class="div-block-6">
-                            <h2 class="m-t-0 m-b-0 _3">$5,995</h2>
-                            <div class="pricing__month">/month</div>
-                        </div>
-                        <div class="div-block-7">
-                            <div class="w-layout-grid grid">
-                                <div class="pricing__list">
-                                    <div>One request at a time</div>
-                                    <div>Avg. 48 hour delivery</div>
-                                    <div>Unlimited brands</div>
-                                    <div>Webflow development</div>
-                                </div>
-                                <div class="pricing__list">
-                                    <div>Unlimited stock photos</div>
-                                    <div>Up to 2 users</div>
-                                    <div>Pause or cancel anytime</div>
-                                </div>
-                            </div>
-                            <div class="included">
-                                <div>Included</div>
-                            </div>
-                        </div>
-                        <div class="div-block-9">
-                            <a href="https://buy.stripe.com/9B68wP42335o38v2v57bW09" target="_blank"
-                                class="div-block-7-copy-copy w-inline-block">
-                                <div class="div-block-8">
-                                    <img loading="lazy" src="{{ asset('assets/images/678548430d58f4cbecec19a3_smile.svg') }}" alt="" />
-                                </div>
-                                <div>Join today</div>
-                            </a>
-                        </div>
-                        <img loading="lazy" src="{{ asset('assets/images/678548430d58f4cbecec19d5_Group_1171274461.svg') }}" alt=""
-                            class="image-29" />
-                    </div>
+                    <livewire:editable-pricing-card />
                 </div>
                 <div class="w-layout-grid grid-2">
                     <div class="div-block-10 _1">

@@ -75,11 +75,15 @@
     }
 
     /* Outline only for admins */
-    .dj-sub-img-wrapper:hover > img {
-        outline: 2px solid #3b82f6;
-        outline-offset: 4px;
-        border-radius: 2px;
-    }
+    @auth
+        @if(auth()->user()->is_admin)
+            .dj-sub-img-wrapper:hover > img {
+                outline: 2px solid #3b82f6;
+                outline-offset: 4px;
+                border-radius: 2px;
+            }
+        @endif
+    @endauth
 
     .dj-sub-img-edit-btn {
         position: absolute;
