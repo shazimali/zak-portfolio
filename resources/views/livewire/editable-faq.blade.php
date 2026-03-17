@@ -7,7 +7,6 @@
             <span class="text-italics">Frequently</span> asked questions
         </h1>
 
-        {{-- Admin edit button --}}
         @if($isAdmin)
             <button wire:click="startEditing" class="dj-faq-edit-btn" title="Edit FAQs">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
@@ -24,7 +23,6 @@
             @endif
         @endif
 
-        {{-- FAQ list from DB --}}
         <div class="div-block-13">
             @forelse($faqs as $faq)
                 <div class="faq__row">
@@ -73,14 +71,12 @@
     </div>
 </div>
 
-{{-- ══════════════════════════════════════════
-     EDIT MODAL
-═══════════════════════════════════════════ --}}
+{{-- EDIT MODAL --}}
 @if($isAdmin && $editing)
+    @teleport('body')
     <div class="dj-faq-backdrop" wire:click.self="cancel">
         <div class="dj-faq-modal">
 
-            {{-- Header --}}
             <div class="dj-faq-modal-header">
                 <span>Edit FAQs <span class="dj-faq-count">({{ count($editFaqs) }} items)</span></span>
                 <button wire:click="cancel" class="dj-faq-close-btn">
@@ -91,7 +87,6 @@
                 </button>
             </div>
 
-            {{-- Existing FAQ items --}}
             <div class="dj-faq-body">
                 @forelse($editFaqs as $i => $faq)
                     <div class="dj-faq-item">
@@ -132,7 +127,6 @@
                 @endforelse
             </div>
 
-            {{-- Add new question --}}
             <div class="dj-faq-add-section">
                 <div class="dj-faq-add-header">+ Add New Question</div>
                 <div class="dj-faq-add-fields">
@@ -156,7 +150,6 @@
                 </div>
             </div>
 
-            {{-- Actions --}}
             <div class="dj-faq-actions">
                 <button wire:click="save" class="dj-btn-save">
                     <span wire:loading.remove wire:target="save">Save All Changes</span>
@@ -167,10 +160,10 @@
 
         </div>
     </div>
+    @endteleport
 @endif
 
 <style>
-    /* ── Edit button ── */
     .dj-faq-edit-btn {
         display: inline-flex; align-items: center; gap: 6px;
         background: #3b82f6; color: white; border: none;
@@ -180,7 +173,6 @@
     }
     .dj-faq-edit-btn:hover { background: #2563eb; }
 
-    /* ── Empty state ── */
     .dj-faq-empty {
         padding: 24px; text-align: center;
         color: #94a3b8; font-size: 14px;
@@ -193,7 +185,6 @@
     }
     .dj-faq-empty-btn:hover { text-decoration: underline; }
 
-    /* ── Toast ── */
     .dj-faq-toast {
         display: inline-block;
         background: #22c55e; color: white;
@@ -204,7 +195,6 @@
     }
     @keyframes dj-faq-fade { 0%,60%{opacity:1} 100%{opacity:0} }
 
-    /* ── Backdrop / Modal ── */
     .dj-faq-backdrop {
         position: fixed; inset: 0;
         background: rgba(0,0,0,0.5);
@@ -234,7 +224,6 @@
     }
     .dj-faq-close-btn:hover { background: #e2e8f0; color: #1e293b; }
 
-    /* ── Scrollable body ── */
     .dj-faq-body {
         overflow-y: auto; flex: 1;
         display: flex; flex-direction: column; gap: 10px;
@@ -242,15 +231,12 @@
     }
     .dj-faq-modal-empty { color: #94a3b8; font-size: 13px; text-align: center; padding: 20px 0; }
 
-    /* ── FAQ item row ── */
     .dj-faq-item {
         background: #f8fafc; border: 1px solid #e2e8f0;
         border-radius: 10px; padding: 12px;
         display: flex; flex-direction: column; gap: 10px;
     }
-    .dj-faq-item-controls {
-        display: flex; align-items: center; gap: 8px;
-    }
+    .dj-faq-item-controls { display: flex; align-items: center; gap: 8px; }
     .dj-faq-num {
         font-size: 11px; font-weight: 700; color: #94a3b8;
         background: #e2e8f0; border-radius: 4px; padding: 2px 6px;
@@ -273,7 +259,6 @@
     .dj-faq-remove-btn:hover { background: #fee2e2; }
     .dj-faq-fields { display: flex; flex-direction: column; gap: 8px; }
 
-    /* ── Add section ── */
     .dj-faq-add-section {
         border-top: 2px dashed #e2e8f0; flex-shrink: 0;
         padding: 14px 20px;
@@ -285,7 +270,6 @@
     }
     .dj-faq-add-fields { display: flex; flex-direction: column; gap: 8px; }
 
-    /* ── Shared field styles ── */
     .dj-field-label {
         display: flex; flex-direction: column; gap: 4px;
         font-size: 11px; font-weight: 600; color: #64748b;
@@ -311,7 +295,6 @@
     }
     .dj-btn-add:hover { background: #e0f2fe; border-color: #7dd3fc; }
 
-    /* ── Actions bar ── */
     .dj-faq-actions {
         display: flex; gap: 8px; padding: 14px 20px;
         border-top: 1px solid #e2e8f0; flex-shrink: 0;
@@ -330,5 +313,39 @@
     }
     .dj-btn-cancel:hover { background: #e2e8f0; }
 </style>
+<script>
+    function initFaqAccordion() {
+        document.querySelectorAll('.faq__row').forEach(function (row) {
+            // Remove old listener to avoid duplicates
+            row.replaceWith(row.cloneNode(true));
+        });
 
+        document.querySelectorAll('.faq__row').forEach(function (row) {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', function () {
+                var answer = row.querySelector('.faq__answer');
+                var arrow  = row.querySelector('.faq__arrow');
+                var isOpen = answer.style.display === 'block';
+
+                // Close all others
+                document.querySelectorAll('.faq__row').forEach(function (r) {
+                    r.querySelector('.faq__answer').style.display = 'none';
+                    r.querySelector('.faq__arrow').style.transform = 'rotateZ(0deg)';
+                });
+
+                // Toggle current
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    arrow.style.transform = 'rotateZ(180deg)';
+                }
+            });
+        });
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', initFaqAccordion);
+
+    // Re-run after Livewire updates (in case FAQs are saved/changed)
+    document.addEventListener('livewire:updated', initFaqAccordion);
+</script>
 </div>

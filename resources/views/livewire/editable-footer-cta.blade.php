@@ -1,5 +1,15 @@
 <div>
 
+    @if($isAdmin)
+    <style>
+        .dj-fcta-wrapper:hover .footer__bottom-top {
+            outline: 2px solid #3b82f6;
+            outline-offset: 8px;
+            border-radius: 4px;
+        }
+    </style>
+    @endif
+
     <div class="dj-fcta-wrapper" style="position: relative;">
 
         <div class="footer__bottom-top">
@@ -33,6 +43,7 @@
 
     {{-- Modal --}}
     @if($isAdmin && $editing)
+        @teleport('body')
         <div class="dj-fcta-backdrop" wire:click.self="cancel">
             <div class="dj-fcta-modal">
 
@@ -51,13 +62,13 @@
                 {{-- Live preview --}}
                 <div class="dj-fcta-preview">
                     <div class="dj-fcta-preview-label">Preview</div>
-                    <h1 class="top footer__header" style="font-size: 18px; margin: 0 0 6px;">
+                    <h1 class="top footer__header" style="font-size: 18px; margin: 0 0 6px; color:#1e293b!important;">
                         {{ $editHeading ?: '…' }}
                         @if($editHeadingItalic)
                             <span class="text-italics">{{ $editHeadingItalic }}</span>
                         @endif
                     </h1>
-                    <p style="margin: 0; font-size: 13px; opacity: 0.7;">
+                    <p style="margin: 0; font-size: 13px; opacity: 0.7; color:#1e293b!important;">
                         {{ $editSubtext ?: '…' }}
                     </p>
                 </div>
@@ -106,12 +117,12 @@
 
             </div>
         </div>
+        @endteleport
     @endif
 
     <style>
         .dj-fcta-wrapper { position: relative; display: inline-block; width: 100%; }
 
-        /* Edit button — appears on hover */
         .dj-fcta-edit-btn {
             position: absolute; top: -10px; right: -10px;
             background: #3b82f6; border: none; border-radius: 50%;
@@ -125,13 +136,7 @@
         }
         .dj-fcta-wrapper:hover .dj-fcta-edit-btn  { opacity: 1; transform: scale(1); }
         .dj-fcta-edit-btn:hover                    { background: #2563eb; transform: scale(1.1) !important; }
-        .dj-fcta-wrapper:hover .footer__bottom-top {
-            outline: 2px solid #3b82f6;
-            outline-offset: 8px;
-            border-radius: 4px;
-        }
 
-        /* Toast */
         .dj-fcta-toast {
             position: absolute; top: -30px; left: 0;
             background: #22c55e; color: white;
@@ -141,7 +146,6 @@
         }
         @keyframes dj-fcta-fade { 0%,60%{opacity:1} 100%{opacity:0} }
 
-        /* Backdrop + Modal */
         .dj-fcta-backdrop {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.5);
@@ -168,7 +172,6 @@
         }
         .dj-fcta-close-btn:hover { background: #e2e8f0; color: #1e293b; }
 
-        /* Preview */
         .dj-fcta-preview {
             background: #f8fafc; border: 1px dashed #cbd5e1;
             border-radius: 8px; padding: 14px 16px;
@@ -180,7 +183,6 @@
             margin-bottom: 8px;
         }
 
-        /* Fields */
         .dj-fcta-fields { display: flex; flex-direction: column; gap: 12px; padding: 16px 20px 0; }
         .dj-field-label {
             display: flex; flex-direction: column; gap: 4px;
@@ -198,7 +200,6 @@
         .dj-field-input:focus { border-color: #3b82f6; }
         .dj-field-error { font-size: 11px; color: #ef4444; }
 
-        /* Actions */
         .dj-fcta-actions { display: flex; gap: 8px; padding: 16px 20px; }
         .dj-btn-save {
             flex: 1; padding: 9px 0; background: #3b82f6; color: white;

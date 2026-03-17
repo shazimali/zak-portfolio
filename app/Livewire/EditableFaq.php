@@ -7,11 +7,10 @@ use App\Models\SiteSetting;
 
 class EditableFaq extends Component
 {
-    public array $faqs    = [];   // rendered list
+    public array $faqs    = [];
     public bool  $editing = false;
 
-    // Modal state
-    public array  $editFaqs    = [];  // working copy while modal is open
+    public array  $editFaqs    = [];
     public string $newQuestion = '';
     public string $newAnswer   = '';
 
@@ -20,7 +19,6 @@ class EditableFaq extends Component
         $this->loadFaqs();
     }
 
-    // ── Admin helper ───────────────────────────────────────────────────────
     public function isAdmin(): bool
     {
         $user = auth()->user();
@@ -30,14 +28,12 @@ class EditableFaq extends Component
         return false;
     }
 
-    // ── Load from DB (no defaults — empty array if nothing saved) ─────────
     private function loadFaqs(): void
     {
         $setting    = SiteSetting::where('key', 'faq_items')->first();
         $this->faqs = $setting ? json_decode($setting->value, true) ?? [] : [];
     }
 
-    // ── Actions ────────────────────────────────────────────────────────────
     public function startEditing(): void
     {
         abort_unless($this->isAdmin(), 403);
@@ -95,7 +91,6 @@ class EditableFaq extends Component
     {
         abort_unless($this->isAdmin(), 403);
 
-        // Validate all existing rows
         foreach ($this->editFaqs as $i => $faq) {
             $this->validate([
                 "editFaqs.{$i}.question" => 'required|string|max:300',

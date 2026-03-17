@@ -1,4 +1,14 @@
 <div>
+    @if($isAdmin)
+    <style>
+        .dj-bp-wrapper:hover .benefits__p {
+            outline: 2px solid #3b82f6;
+            outline-offset: 6px;
+            border-radius: 4px;
+        }
+    </style>
+    @endif
+
     <div class="dj-bp-wrapper">
         <p class="benefits__p">{{ $para }}</p>
 
@@ -81,11 +91,6 @@
         }
         .dj-bp-wrapper:hover .dj-bp-edit-btn { opacity: 1; }
         .dj-bp-edit-btn:hover { background: #2563eb; }
-        .dj-bp-wrapper:hover .benefits__p {
-            outline: 2px solid #3b82f6;
-            outline-offset: 6px;
-            border-radius: 4px;
-        }
         .dj-bp-toast {
             position: absolute; top: -30px; left: 0;
             background: #22c55e; color: white;

@@ -7,6 +7,12 @@
         .dj-mct-wrapper .hero__member-card-p {
             opacity: 1 !important;
         }
+        dj-mct-wrapper:hover .hero__member-card-header,
+        .dj-mct-wrapper:hover .hero__member-card-p {
+            outline: 2px solid #3b82f6;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
     </style>
     @endif
 @endauth
@@ -128,13 +134,6 @@
     }
     .dj-mct-wrapper:hover .dj-mct-edit-btn { opacity: 1; transform: scale(1); }
     .dj-mct-edit-btn:hover { background: #2563eb; transform: scale(1.1) !important; }
-
-    .dj-mct-wrapper:hover .hero__member-card-header,
-    .dj-mct-wrapper:hover .hero__member-card-p {
-        outline: 2px solid #3b82f6;
-        outline-offset: 4px;
-        border-radius: 4px;
-    }
 
     .dj-mct-toast {
         position: absolute; top: -30px; left: 0;

@@ -24,7 +24,13 @@ class EditableBenefitsPara extends Component
         $setting = SiteSetting::where('key', 'benefits_hero')->first();
         $data    = $setting ? (json_decode($setting->value, true) ?? []) : [];
 
-        $this->para = $data['para'] ?? self::DEFAULT_PARA;
+        $decoded = is_array($data) ? $data : [];
+
+        $para = $decoded['para'] ?? null;
+
+        $this->para = ($para !== null && trim($para) !== '')
+            ? $para
+            : self::DEFAULT_PARA;
     }
 
     private function isAdmin(): bool
@@ -41,7 +47,6 @@ class EditableBenefitsPara extends Component
         abort_unless($this->isAdmin(), 403);
         $this->editPara = $this->para;
         $this->editing  = true;
-        $this->dispatch('open-modal', id: 'dj-bh-para-modal');
     }
 
     public function save(): void
@@ -49,12 +54,12 @@ class EditableBenefitsPara extends Component
         abort_unless($this->isAdmin(), 403);
         $this->validate(['editPara' => 'required|string|max:500']);
 
-        // Load existing data so we don't overwrite heading
         $setting  = SiteSetting::where('key', 'benefits_hero')->first();
         $existing = $setting ? (json_decode($setting->value, true) ?? []) : [];
 
         $this->para = trim($this->editPara);
 
+        // Fall back to defaults for other fields if empty
         SiteSetting::updateOrCreate(
             ['key'   => 'benefits_hero'],
             ['value' => json_encode([
@@ -67,7 +72,6 @@ class EditableBenefitsPara extends Component
 
         $this->editing = false;
         $this->resetValidation();
-        $this->dispatch('close-modal', id: 'dj-bh-para-modal');
         session()->flash('benefits_para_updated', true);
     }
 
@@ -75,7 +79,6 @@ class EditableBenefitsPara extends Component
     {
         $this->editing = false;
         $this->resetValidation();
-        $this->dispatch('close-modal', id: 'dj-bh-para-modal');
     }
 
     public function render()

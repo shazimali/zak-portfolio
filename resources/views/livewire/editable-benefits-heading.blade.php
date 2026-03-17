@@ -86,6 +86,15 @@
         @endteleport
     @endif
 
+    @if($isAdmin)
+<style>
+    .dj-bh-heading-wrapper:hover h1.max {
+        outline: 2px solid #3b82f6;
+        outline-offset: 6px;
+        border-radius: 4px;
+    }
+</style>
+@endif
     <style>
         .dj-bh-heading-wrapper {
             position: relative; display: inline-block; width: 100%;
@@ -102,11 +111,6 @@
         }
         .dj-bh-heading-wrapper:hover .dj-bh-edit-btn { opacity: 1; }
         .dj-bh-edit-btn:hover { background: #2563eb; }
-        .dj-bh-heading-wrapper:hover h1.max {
-            outline: 2px solid #3b82f6;
-            outline-offset: 6px;
-            border-radius: 4px;
-        }
         .dj-bh-toast {
             position: absolute; top: -30px; left: 0;
             background: #22c55e; color: white;

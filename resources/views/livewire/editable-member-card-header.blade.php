@@ -83,6 +83,11 @@
         .dj-mch-wrapper .hero__member-card-header {
             opacity: 1 !important;
         }
+         .dj-mch-wrapper:hover .hero__member-card-header {
+            outline: 2px solid #3b82f6;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
     </style>
     @endif
 @endauth
@@ -105,13 +110,6 @@
     }
     .dj-mch-wrapper:hover .dj-mch-edit-btn { opacity: 1; transform: scale(1); }
     .dj-mch-edit-btn:hover { background: #2563eb; transform: scale(1.1) !important; }
-
-    /* Hover outline on the text blocks */
-    .dj-mch-wrapper:hover .hero__member-card-header {
-        outline: 2px solid #3b82f6;
-        outline-offset: 4px;
-        border-radius: 4px;
-    }
 
     /* Toast */
     .dj-mch-toast {
