@@ -32,12 +32,15 @@
             </div>
 
             <div class="div-block-9">
-                <a href="{{ $stripeUrl }}" target="_blank" class="div-block-7-copy-copy w-inline-block">
+                <a href="#" wire:click.prevent="checkout" class="div-block-7-copy-copy w-inline-block">
                     <div class="div-block-8">
                         <img loading="lazy" src="{{ asset('assets/images/678548430d58f4cbecec19a3_smile.svg') }}" alt="" />
                     </div>
                     <div>{{ $btnLabel }}</div>
                 </a>
+                @if(session()->has('error'))
+                    <div style="color: red; margin-top: 10px; font-size: 14px; text-align: center;">{{ session('error') }}</div>
+                @endif
             </div>
 
             <img loading="lazy" src="{{ asset('assets/images/678548430d58f4cbecec19d5_Group_1171274461.svg') }}" alt="" class="image-29" />
@@ -113,10 +116,6 @@
                         @error('editList2') <span class="dj-field-error">{{ $message }}</span> @enderror
                     </label>
 
-                    <label class="dj-field-label">Stripe URL
-                        <input type="url" wire:model.live="editStripeUrl" class="dj-field-input" placeholder="https://buy.stripe.com/..." />
-                        @error('editStripeUrl') <span class="dj-field-error">{{ $message }}</span> @enderror
-                    </label>
 
                     <label class="dj-field-label">Button Label
                         <input type="text" wire:model.live="editBtnLabel" class="dj-field-input" maxlength="50" placeholder="Join today" />
