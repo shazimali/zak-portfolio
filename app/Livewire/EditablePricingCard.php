@@ -132,7 +132,7 @@ class EditablePricingCard extends Component
                     'quantity' => 1,
                 ]],
                 'mode' => $isRecurring ? 'subscription' : 'payment',
-                'success_url' => url('/'),
+                'success_url' => url('/thank-you'),
                 'cancel_url' => url('/'),
             ];
 
